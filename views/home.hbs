@@ -1,0 +1,75 @@
+<style>
+    :root {
+        --primary-color: #fff;
+        --background-color: #e5e5e5;
+        --text-color: #2d2d2d;
+
+        font-family: sans-serif;
+    }
+
+    /* 'light' or 'dark' options */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --primary-color: #455363;
+            --background-color: #1f2935;
+            --text-color: #fff;
+        }
+    }
+
+    body {
+        background-color: var(--background-color);
+        color: var(--text-color);
+
+        padding: 1rem;
+    }
+
+    .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+</style>
+
+<h1>About</h1>
+<p>Hey there, this is the main body of the content, over here you can see that this file is individual from the other
+    ones</p>
+<p>It is completely isolated and has nothing to do with the header or the footer</p>
+<br>
+<h1>Examples</h1>
+<p>Wanna know what date it is? It's --> {{{time}}}</p>
+<br>
+<h1>Example Listing</h1>
+<p>
+    This is just some filler text 😊
+</p>
+<p>
+    Sorry about the lack of style, but I really wanted to keep this as vanilla and minimal as possible
+    whilst still providing a solid example for as many
+    things as possible.<br>
+    It is quite a bit more complex than the <code>master</code> branch, but it's still super useful!
+</p>
+<p>
+    Here's an example of how to use for-loops, if you are new I think this will come in handy, I know that
+    it was quite a bother for me to find a working example, the following works amazingly well with this
+    project setup.
+</p>
+<table>
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each listExample as | row |}}
+        {{!-- Sadly, handlebars can not handle Javascript inside of these little --}}
+        {{!-- brackets, so you have to create helpers, it's quite simple but annoying. --}}
+        <tr id="row-{{row.id}}" class="{{#if row.disabled }}disabled{{else}}enabled{{/if}}">
+            <td>{{row.id}}</td>
+            <td>{{row.name}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+
+</table>

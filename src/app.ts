@@ -2,9 +2,12 @@
     import http from 'http';
     import express from 'express';
     import config from './config/config';
+    import exphbs from 'express-handlebars';
+    import path from 'path';
 
     // Routes
     import sampleRoutes from './routes/Sample';
+    import Homepage from './routes/Homepage';
 
 //#endregion
 
@@ -13,6 +16,12 @@ const NAMESPACE = `App`;
 // Setup the expressJS instance
 const router = express();
 
+// Set the view engine as Handlebars
+router.set('view engine', 'hbs');
+
+router.engine("hbs", exphbs({
+    extname: 'hbs'
+}));
 
 // Setup the router to log all activity that is happening
 router.use((req, res, next) => {
@@ -48,13 +57,35 @@ router.use((req, res, next) => {
 
 // Routing
 
-router.use('/sample', sampleRoutes);
+// Register the public folder where you can serve static/public data
+router.use(`/public`, express.static('./src/public/'));
+
+// Handle the homepage
+router.get("/", Homepage);
+
+// An example API route
+router.use('/api', sampleRoutes);
+
 
 { // Error handling
     router.use((req, res, next) => {
-        const error = new Error(`Api Route Not Found`);
+        // Generate an error
+        const error = new Error(`Page Not Found`);
 
-        return res.status(404).json({
+        // Set the response to 404
+        res.status(404)
+
+        // Read the request's preffered response type ( default text/html )
+        if ( !!req.headers.accept ) {
+            // Check if HTML is acceptable
+            console.log(req.headers.accept);
+            if ( req.headers.accept.includes(`text/html`) ) {
+                return res.sendFile(`./views/errors/404.html`, { root: __dirname });
+            }
+        }
+
+        // If text/html is not accepted, then simply return a JSON
+        return res.json({
             message: error.message
         })
 
