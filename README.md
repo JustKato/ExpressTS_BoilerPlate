@@ -1,5 +1,5 @@
 ## Description
-A boilerplate for `ExpressJS` using `TypeScript`
+A simple `API-Oriented` boilerplate for `ExpressJS` using `TypeScript`, for the "`FrameWork`" check out the branches or Wiki for more info
 
 ## Dev Running
 ```bash
