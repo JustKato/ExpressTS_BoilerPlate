@@ -16,7 +16,8 @@ const SERVER = {
 
 // The whole configuration
 const config = {
-    server: SERVER
+    server: SERVER,
+    devmode: process.env.DEV_MODE || 0,
 };
 
 export default config;
